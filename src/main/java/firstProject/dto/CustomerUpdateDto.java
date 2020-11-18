@@ -14,7 +14,7 @@ public class CustomerUpdateDto {
 	private Long id;
 	@ApiModelProperty(example = "Nguyễn Văn Thành")
 	private String name;
-	@ApiModelProperty(example = "Nguyễn Văn Thành")
+	@ApiModelProperty(example = "Nam")
 	private String sex;
 	@ApiModelProperty(example = "1994-27-10 00:00:00")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+7")

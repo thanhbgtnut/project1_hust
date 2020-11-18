@@ -25,4 +25,14 @@ public class CustomerControler {
 	ResponseEntity<ResponseData<Object>> updateCustomer(@RequestBody CustomerUpdateDto customerUpdateDto ) throws BusinessException {
 		return ResponseEntity.ok(new ResponseData().success(customerService.updateCustomer(customerUpdateDto)));
 	}
+	
+	@GetMapping("/get/customer-by-id")
+	ResponseEntity<ResponseData<Object>> getCustomerById(@RequestParam Long id ) throws BusinessException {
+		return ResponseEntity.ok(new ResponseData().success(customerService.getCustomerById(id)));
+	}
+	
+	@DeleteMapping("/delete/customer-by-id")
+	ResponseEntity<ResponseData<Object>> deleteCustomer(@RequestParam Long id ) throws BusinessException {
+		return ResponseEntity.ok(new ResponseData().success(customerService.deleteCustomer(id)));
+	}
 }
