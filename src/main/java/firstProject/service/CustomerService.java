@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import firstProject.Repository.CustomerRepository;
 import firstProject.base.BaseErrorCode;
-import firstProject.base.BussinessException;
+import firstProject.base.BusinessException;
 import firstProject.dto.CustomerUpdateDto;
 import firstProject.entity.Account;
 
@@ -15,12 +15,12 @@ public class CustomerService {
 	@Autowired
 	private CustomerRepository customerRepository;
 	
-	public Object getAllCustomer() throws BussinessException {
-		throw new BussinessException(BaseErrorCode.CUSTOMER_NOT_FOUND);
+	public Object getAllCustomer() throws BusinessException {
+		throw new BusinessException(BaseErrorCode.NOT_FOUND);
 		//return customerRepository.findAll();
 	}
-	public Object updateCustomer(CustomerUpdateDto customerUpdateDto) throws BussinessException {
-		Account customer = customerRepository.findById(customerUpdateDto.getId()).orElseThrow(()-> new BussinessException(BaseErrorCode.CUSTOMER_NOT_FOUND));
+	public Object updateCustomer(CustomerUpdateDto customerUpdateDto) throws BusinessException {
+		Account customer = customerRepository.findById(customerUpdateDto.getId()).orElseThrow(()-> new BusinessException(BaseErrorCode.NOT_FOUND));
 		if(customerUpdateDto.getName()!=null) customer.setName(customerUpdateDto.getName());
 		if(customerUpdateDto.getBirthDay()!=null) customer.setBirthDay(customerUpdateDto.getBirthDay());
 		if(customerUpdateDto.getAddress()!=null) customer.setAddress(customerUpdateDto.getAddress());
