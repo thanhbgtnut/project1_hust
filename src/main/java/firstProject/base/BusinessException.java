@@ -5,7 +5,7 @@ public class BusinessException extends Exception {
 
     private static final long serialVersionUID = 7718828512143293558L;
 
-    private final BaseErrorCode code;
+    private BaseErrorCode code;
 
     private Object[] args;
 

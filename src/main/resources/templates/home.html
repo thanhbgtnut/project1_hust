@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PROJECT I - NGUYEN VAN THANH : 201920429 - GUIDE BY MS.GIANG - HUST</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <h2 class="text-center"> DANH SÁCH KHÁCH HÀNG SỬ DỤNG DỊCH VỤ CỦA MB-BANK </h2>
+    <a class="btn btn-link" href="/customer">Cập nhật</a>
+</div>
+<hr>
+<div class="container">
+    <table class="table">
+        <thead class="thead-light">
+        <tr>
+            <th> ID </th>
+            <th> MÃ KHÁCH HÀNG</th>
+            <th> HỌ VÀ TÊN</th>
+            <th> GIỚI TÍNH</th>
+            <th> NGÀY SINH</th>
+            <th> ĐỊA CHỈ</th>
+            <th> SỐ ĐIỆN THOẠI</th>
+            <th> THAO TÁC</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${customers.empty}">
+            <td colspan="2"> Hiện tại không có khách hàng nào</td>
+        </tr>
+        <tr th:each="customer : ${customers}">
+            <td><span th:text="${customer.id}"> </span></td>
+            <td><span th:text="${customer.code}"> </span></td>
+            <td><span th:text="${customer.name}"> </span></td>
+            <td><span th:text="${customer.sex}"> </span></td>
+            <td type="date">
+                <span th:text="${customer.birthDay}"> </span></td>
+            <td><span th:text="${customer.address}"> </span></td>
+            <td><span th:text="${customer.phone}"> </span></td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>

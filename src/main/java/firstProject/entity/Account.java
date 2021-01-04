@@ -20,7 +20,7 @@ public class Account {
 	private String name;
 	@Column(name="SEX")
 	private String sex;
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+7")
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+7")
 	@Column(name="BIRTHDAY")
 	private Date birthDay;
 	@Column(name="ADDRESS")

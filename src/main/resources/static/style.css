@@ -1,0 +1,29 @@
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: center;
+}
+.pagination-centered {
+    text-align: center;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.pointer-disabled {
+    pointer-events: none;
+}
+.form-group.col-md-11.pagination-centered {
+    background-color: #007bff6b;
+}
+
+#pageSizeSelect{
+    width: 120px;
+    min-width: 100px;
+}

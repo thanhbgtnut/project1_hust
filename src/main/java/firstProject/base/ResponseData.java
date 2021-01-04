@@ -37,6 +37,13 @@ public class ResponseData<T> implements Serializable{
 		return this;
 	}
 	
+	public ResponseData<T> error(int code, String message, T data) {
+		this.code = code;
+		this.message = message;
+		this.data = data;
+		return this;
+	}
+	
 	public int getCode() {
 		return code;
 	}

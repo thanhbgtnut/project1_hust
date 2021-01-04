@@ -1,0 +1,98 @@
+<html>
+
+<header>
+    <title>
+        THAY ĐỔI THÔNG TIN
+    </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/style.css">
+    <script>
+        $(document).ready(function(){
+            document.getElementById("name").value=sessionStorage.getItem("name");
+            document.getElementById("sex").value=sessionStorage.getItem("sex");
+            document.getElementById("birth").value=sessionStorage.getItem("birthDay");
+            document.getElementById("address").value=sessionStorage.getItem("address");
+            document.getElementById("phone").value=sessionStorage.getItem("phone");
+        });
+    </script>
+
+</header>
+
+<body>
+
+    <div class="container">
+        <div class="form-group">
+            <label for="name">HỌ VÀ TÊN</label>
+            <input type="text" class="form-control" id="name" name="HỌ VÀ TÊN">
+        </div>
+        <div class="form-group">
+            <label for="sex">GIỚI TÍNH</label>
+            <input type="text" class="form-control" id="sex" name="GIỚI TÍNH">
+        </div>
+
+        <div class="form-group">
+            <label for="address">ĐỊA CHỈ</label>
+            <input type="text" class="form-control" id="address" name="ĐỊA CHỈ">
+        </div>
+        <div class="form-group">
+            <label for="birth">NGÀY SINH</label>
+            <input type="text" class="form-control" id="birth" name="NGÀY SINH">
+        </div>
+        <div class="form-group">
+            <label for="phone">SỐ ĐIỆN THOẠI</label>
+            <input type="text" class="form-control" id="phone" name="SỐ ĐIỆN THOẠI">
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="editInfor()"> CẬP NHẬT </button>
+        <button class="btn btn-primary btn-sm" onclick="deleteCustomer()">Xóa</button>
+
+    </div>
+<script>
+    async function editInfor(){
+        let name = document.getElementById("name").value;
+        let sex = document.getElementById("sex").value;
+        let address = document.getElementById("address").value;
+        let birth = document.getElementById("birth").value;
+        let phone = document.getElementById("phone").value;
+        let dataRq = {
+            "address": address,
+            "birthDay": birth+" 00:00:00",
+            "id": sessionStorage.getItem("id"),
+            "name": name,
+            "phone": phone,
+            "sex": sex
+        }
+
+        $.ajax({
+            url: '/v1.0/post/update-customer',
+            headers: {
+                'Content-Type':'application/json'
+            },
+            method: 'POST',
+            dataType: 'json',
+            data: JSON.stringify(dataRq),
+            success: function(data){
+                alert("Cập nhật thành công!");
+                document.location.href ="/customer";
+            }
+        });
+    }
+
+    async function deleteCustomer(){
+
+        let id = sessionStorage.getItem("id");
+
+        $.ajax({
+            url: '/v1.0/delete/customer-by-id?id='+id,
+            type: 'DELETE',
+            success: function(data){
+                alert("Xóa thành công!");
+                document.location.href ="/customer";
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

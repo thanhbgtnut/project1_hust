@@ -17,8 +17,9 @@ public class CustomerControler {
 	private CustomerService customerService;
 	
 	@GetMapping("/get/all-customer")
-	ResponseEntity<ResponseData<Object>> getAllCustomer() throws BusinessException {
-		return ResponseEntity.ok(new ResponseData().success(customerService.getAllCustomer()));
+	ResponseEntity<ResponseData<Object>> getAllCustomer(@RequestParam(value = "page", required = false)Long page
+			, @RequestParam(value = "size", required = false) Long size) throws BusinessException {
+		return ResponseEntity.ok(new ResponseData().success(customerService.getAllCustomer(page, size)));
 	}
 	
 	@PostMapping("/post/update-customer")
