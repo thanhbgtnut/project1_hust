@@ -1,0 +1,122 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="page-title container-fluid row">
+        <h2 class="text-center">
+            <span class="fa fa-arrow-circle-o-left"></span> DANH SÁCH KHÁCH HÀNG SỬ DỤNG DỊCH VỤ CỦA MB-BANK
+        </h2>
+    </div>
+    <div class="row">
+        <table class="table datatable">
+            <thead>
+            <tr>
+                <th> ID </th>
+                <th> MÃ KHÁCH HÀNG</th>
+                <th> HỌ VÀ TÊN</th>
+                <th> GIỚI TÍNH</th>
+                <th> NGÀY SINH</th>
+                <th> ĐỊA CHỈ</th>
+                <th> SỐ ĐIỆN THOẠI</th>
+                <th> THAO TÁC</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer : ${customers}">
+                <td><span th:text="${customer.id}"> </span></td>
+                <td><span th:text="${customer.code}"> </span></td>
+                <td><span th:text="${customer.name}"> </span></td>
+                <td><span th:text="${customer.sex}"> </span></td>
+                <td ><span th:text="${customer.birthDay}"> </span></td>
+                <td><span th:text="${customer.address}"> </span></td>
+                <td><span th:text="${customer.phone}"> </span></td>
+                <td>
+                    <button type="button"
+                            class="btn btn-primary btn-condensed btn-sm"
+                            th:onclick="'getPropId(\'' + ${customer.id} + '\');'"
+                    >
+                        <i class="glyphicon glyphicon-folder-open"></i>
+                        THAY ĐỔI
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="row ">
+            <div class="col form-group">
+                <select class="form-control pagination " id="pageSizeSelect">
+                    <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}"
+                            th:value="${pageSize}"
+                            th:selected="${pageSize} == ${selectedPageSize}"> </option>
+                </select>
+            </div>
+            <div th:if="${customers.totalPages != 1}"
+                 class="form-group pagination-centered col">
+                <ul class="pagination">
+                    <li th:class="${customers.number == 0} ? disabled"><a
+                            class="pageLink"
+                            th:href="@{/customer(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+                    </li>
+                    <li th:class="${customers.number == 0} ? disabled"><a
+                            class="pageLink"
+                            th:href="@{/customer(pageSize=${selectedPageSize}, page=${customers.number})}">&larr;</a>
+                    </li>
+                    <li
+                            th:class="${customers.number == (page - 1)} ? 'active pointer-disabled'"
+                            th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                        <a class="pageLink"
+                           th:href="@{/customer(pageSize=${selectedPageSize}, page=${page})}"
+                           th:text="${page}"></a>
+                    </li>
+                    <li
+                            th:class="${customers.number + 1 == customers.totalPages} ? disabled">
+                        <a class="pageLink"
+                           th:href="@{/customer(pageSize=${selectedPageSize}, page=${customers.number + 2})}">&rarr;</a>
+                    </li>
+                    <li
+                            th:class="${customers.number + 1 == customers.totalPages} ? disabled">
+                        <a class="pageLink"
+                           th:href="@{/customer(pageSize=${selectedPageSize}, page=${customers.totalPages})}">&raquo;</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        changePageAndSize();
+    });
+    function changePageAndSize() {
+        $('#pageSizeSelect').change(function (evt) {
+            window.location.replace("/customer?pageSize=" + this.value + "&page=1");
+        });
+    }
+
+    function getPropId(id) {
+        console.log(id);
+        $.get("/v1.0/get/customer-by-id?id="+id, function(data, status){
+            sessionStorage.setItem("address", data.data.address);
+            sessionStorage.setItem("birthDay", data.data.birthDay);
+            sessionStorage.setItem("code", data.data.code);
+            sessionStorage.setItem("name", data.data.name);
+            sessionStorage.setItem("address", data.data.address);
+            sessionStorage.setItem("birthDay", data.data.birthDay);
+            sessionStorage.setItem("id", data.data.id);
+            sessionStorage.setItem("phone", data.data.phone);
+            sessionStorage.setItem("sex", data.data.sex);
+            console.log(data.data);
+            document.location.href ="/edit";
+        });
+    }
+</script>
+
+</body>
+
+</html>
